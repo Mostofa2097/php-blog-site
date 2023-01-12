@@ -1,5 +1,8 @@
 <?php
 include 'header.php';
+if (isset($_SESSION['user_data'])) {
+   $userId = $_SESSION['user_data']['0'];
+}
 ?>
 
 
@@ -11,8 +14,8 @@ include 'header.php';
    <div class="card shadow">
       <div class="card-header py-3 d-flex justify-content-between">
          <div>
-            <a href="">
-               <h6 class="font-weight-bold text-primary mt-2">Add New</h6>
+            <a href="add_blog.php">
+               <h6 class="font-weight-bold text-primary mt-2">Add New blog</h6>
             </a>
          </div>
          <div>
@@ -40,6 +43,39 @@ include 'header.php';
                   </tr>
                </thead>
                <tbody>
+                  <?php
+                  $sql = "SELECT * FROM blog LEFT JOIN category ON blog.category = category.cat_id LEFT JOIN 
+                  user ON blog.author_id = user.user_id WHERE user_id = '$userId'";
+                  $query = mysqli_query($config, $sql);
+                  $row = mysqli_num_rows($query);
+                  $count = 0;
+                  if ($row) {
+                     while ($result = mysqli_fetch_assoc($query)) {
+                  ?>
+                        <tr>
+                           <td><?= ++$count ?></td>
+                           <td><?= $result['blog_title'] ?></td>
+                           <td><?= $result['cat_name'] ?></td>
+                           <td><?= $result['username'] ?></td>
+                           <td><?= date('d-M-Y', strtotime($result['publish_date'])) ?></td>
+                           <td><a href="" class="btn btn-sm btn-success">Edit</a></td>
+                           <td>
+                              <form action="">
+                                 <input type="submit" name="delete_btn" value="Delete" class="btn btn-sm btn-danger">
+
+                              </form>
+                           </td>
+                        </tr>
+
+                  <?php
+
+                     }
+                  } else {
+                     echo "not";
+                  }
+
+
+                  ?>
                </tbody>
             </table>
          </div>

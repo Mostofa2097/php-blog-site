@@ -87,9 +87,11 @@ if (isset($_POST['deleteCat'])) {
     $run = mysqli_query($config, $delete);
     if ($run) {
         echo "delete successfully";
-        header("location:categories.php");
+        echo "<script>window.location.href='categories.php'</script>";
+        // header("location:categories.php");
     } else {
-        header("location:categories.php");
+        echo "<script>window.location.href='categories.php'</script>";
+        // header("location:categories.php");
         // echo "failed please agin try";
     }
 }
