@@ -19,7 +19,7 @@ if (isset($_SESSION['user_data'])) {
             </a>
          </div>
          <div>
-            <form class="navbar-search">
+            <form class="navbar-search ">
                <div class="input-group">
                   <input type="text" class="form-control bg-white border-0 small" placeholder="Search for...">
                   <div class="input-group-append">
@@ -45,7 +45,7 @@ if (isset($_SESSION['user_data'])) {
                <tbody>
                   <?php
                   $sql = "SELECT * FROM blog LEFT JOIN category ON blog.category = category.cat_id LEFT JOIN 
-                  user ON blog.author_id = user.user_id WHERE user_id = '$userId'";
+                  user ON blog.author_id = user.user_id WHERE user_id = '$userId' ORDER BY blog.publish_date DESC";
                   $query = mysqli_query($config, $sql);
                   $row = mysqli_num_rows($query);
                   $count = 0;
@@ -58,12 +58,14 @@ if (isset($_SESSION['user_data'])) {
                            <td><?= $result['cat_name'] ?></td>
                            <td><?= $result['username'] ?></td>
                            <td><?= date('d-M-Y', strtotime($result['publish_date'])) ?></td>
-                           <td><a href="" class="btn btn-sm btn-success">Edit</a></td>
+                           <td><a href="edit_blog.php?id=<?=$result['blog_id']?>" class="btn btn-sm btn-success">Edit</a></td>
                            <td>
-                              <form action="">
-                                 <input type="submit" name="delete_btn" value="Delete" class="btn btn-sm btn-danger">
+                           <form class="mb=2" method="POST" onsubmit="return confirm('Are you sure')">
+                                            <input type="hidden" name="id" value="<?= $result['blog_id'] ?>">
+                                            <input type="hidden" name="image" value="<?= $result['blog_image'] ?>">
+                                            <input type="submit" name="deletePost" value="Delete" class="btn btn-sm btn-danger">
 
-                              </form>
+                                        </form>
                            </td>
                         </tr>
 
@@ -88,4 +90,21 @@ if (isset($_SESSION['user_data'])) {
 
 <?php
 include 'footer.php';
+
+if (isset($_POST['deletePost'])) {
+   $id = $_POST['id'];
+   $delete = "DELETE FROM blog WHERE blog_id = '$id'";
+   $image ="upload/" .$_POST['image'];
+   $run = mysqli_query($config, $delete);
+   if ($run) {
+      unlink($image);
+       echo "delete successfully";
+       echo "<script>window.location.href='index.php'</script>";
+       // header("location:categories.php");
+   } else {
+       echo "<script>window.location.href='index.php'</script>";
+       // header("location:categories.php");
+       // echo "failed please agin try";
+   }
+}
 ?>

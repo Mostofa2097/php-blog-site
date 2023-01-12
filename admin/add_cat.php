@@ -4,7 +4,7 @@ include 'header.php';
 <div class="container">
     <h5 class="mb-2 text-gray-800">Catagories</h5>
     <div class="row">
-        <div class="col-xl-6 col-lg-5">
+        <div class="col-xl-8 col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h6 class="font-weight-bold text-primary mt-2">Add New Category</h6>
