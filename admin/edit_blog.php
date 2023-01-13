@@ -76,7 +76,7 @@ $result = mysqli_fetch_assoc($query2);
 
 <?php
 include 'footer.php';
-if (isset($_POST['add_blog'])) {
+if (isset($_POST['edit_blog'])) {
     $title = mysqli_real_escape_string($config, $_POST['blog_title']);
     $body = mysqli_real_escape_string($config, $_POST['blog_body']);
     $category = mysqli_real_escape_string($config, $_POST['category']);
@@ -86,24 +86,43 @@ if (isset($_POST['add_blog'])) {
     $image_ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
     $allow_type = ['jpg', 'png', 'jpeg'];
     $destination = "upload/" . $filename;
-    if (in_array($image_ext, $allow_type)) {
-        if ($size <= 2000000) {
-            move_uploaded_file($tmp_name, $destination);
-            $sql3 = "UPDATE blog SET blog_title='$title',blog_body='$body',blog_image=$filename,category='$category',author_id='$author_id' 
-             WHERE blog_id='$blogId'";
+    if(!empty($filename)){
+        if (in_array($image_ext, $allow_type)) {
+            if ($size <= 2000000) {
+                $unlink = "upload/".$result['blog_image'];
+                unlink($unlink);
+                move_uploaded_file($tmp_name, $destination);
+                $sql3 = "UPDATE blog SET blog_title='$title',blog_body='$body',blog_image='$filename',category='$category',author_id='$author_id' 
+                WHERE blog_id='$blogId'"; 
+                $query3 = mysqli_query($config, $sql3);
+                if ($query3) {
+                    echo "add";
+                    echo "<script>window.location.href='index.php'</script>";
 
-            $query3 = mysqli_query($config, $sql3);
-            if ($query3) {
-                echo "add";
+                } else {
+                    echo "error";
+                }
             } else {
-                echo "error";
+                echo "image size should not be grater then 2mb";
             }
         } else {
-            echo "image size should not be grater then 2mb";
+            echo "file type is not allow(only jpg,png,jpeg";
         }
-    } else {
-        echo "file type is not allow(only jpg,png,jpeg";
+
     }
+    else {
+        $sql3 = "UPDATE blog SET blog_title='$title',blog_body='$body',category='$category',author_id='$author_id' 
+                WHERE blog_id='$blogId'"; 
+                $query3 = mysqli_query($config, $sql3);
+                if ($query3) {
+                    echo "add";
+                    echo "<script>window.location.href='index.php'</script>";
+
+                } else {
+                    echo "error";
+                }
+    }
+    
 }
 
 ?>

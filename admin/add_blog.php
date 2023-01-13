@@ -28,6 +28,7 @@ $query = mysqli_query($config, $sql);
                         </div>
                         <div class="mb-3">
                             <input type="file" name="blog_image" class="form-control">
+                            
                         </div>
                         <div class="mb-3">
                             <select class="form-control" name="category">
@@ -68,6 +69,8 @@ if (isset($_POST['add_blog'])) {
             $query2 = mysqli_query($config, $sql2);
             if ($query2) {
                 echo "add";
+                echo "<script>window.location.href='index.php'</script>";
+
             } else {
                 echo "error";
             }
