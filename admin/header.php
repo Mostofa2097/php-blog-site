@@ -53,7 +53,7 @@ if (!isset($_SESSION['user_data'])) {
             <hr class="sidebar-divider">
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href=""> <span>Users</span> </a>
+                <a class="nav-link collapsed" href="user.php"> <span>Users</span> </a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
