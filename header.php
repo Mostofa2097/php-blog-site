@@ -1,5 +1,8 @@
 <?php
 $page = basename($_SERVER['PHP_SELF'], ".php");
+include "Config.php";
+$select = "SELECT * FROM category ";
+$run = mysqli_query($config,$select);
 ?>
 
 <!doctype html>
@@ -41,8 +44,13 @@ $page = basename($_SERVER['PHP_SELF'], ".php");
               Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">politics</a>
-              <a class="dropdown-item" href="#">sports</a>
+            <?php
+               while ($cats= mysqli_fetch_assoc($run)) {
+             ?>
+              <a class="dropdown-item" href="#"><?= $cats['cat_name']?></a>
+
+              <?php }?>
+              
 
           </li>
           <li class="nav-item ">

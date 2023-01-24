@@ -50,7 +50,8 @@ if (isset($_POST['login_btn'])) {
         $result = mysqli_fetch_assoc($query);
         $user_data = array($result['user_id'], $result['username'], $result['email']);
         $_SESSION['user_data'] = $user_data;
-        header("location:admin/index.php");
+        echo "<script>window.location.href='admin/index.php'</script>";
+        // header("location:admin/index.php");
     } else {
         $_SESSION['error'] = "invalid email/pass";
         header("location:home.php");
