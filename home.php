@@ -1,7 +1,6 @@
 <?php
 $page = basename($_SERVER['PHP_SELF'], ".php");
 ?>
-
 <!doctype html>
 <html lang="en">
 

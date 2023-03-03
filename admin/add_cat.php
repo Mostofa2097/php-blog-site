@@ -25,7 +25,6 @@ include 'header.php';
         </div>
     </div>
 </div>
-
 <?php
 include 'footer.php';
 if (isset($_POST['add_cat'])) {

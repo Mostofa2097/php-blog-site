@@ -3,10 +3,7 @@ include 'header.php';
 $sql = "SELECT * FROM user ";
 $query = mysqli_query($config , $sql);
 $row = mysqli_num_rows($query);
-
 ?>
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->

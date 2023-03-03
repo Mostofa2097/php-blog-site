@@ -1,8 +1,9 @@
 <?php
+session_start();
 $page = basename($_SERVER['PHP_SELF'], ".php");
 include "Config.php";
 $select = "SELECT * FROM category ";
-$run = mysqli_query($config,$select);
+$run = mysqli_query($config, $select);
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,21 +44,45 @@ $run = mysqli_query($config,$select);
               Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <?php
-               while ($cats= mysqli_fetch_assoc($run)) {
-             ?>
-              <a class="dropdown-item" href="#"><?= $cats['cat_name']?></a>
+              <?php
+              while ($cats = mysqli_fetch_assoc($run)) {
+              ?>
+                <a class="dropdown-item" href="#"><?= $cats['cat_name'] ?></a>
 
-              <?php }?>
-              
+              <?php } ?>
 
-          </li>
-          <li class="nav-item ">
+
+
+
+              <!-- <li class="nav-item ">
             <a class="nav-link , <?= ($page == "login") ? 'active' : '' ?>" href="login.php">Login </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link , <?= ($page == "Registration") ? 'active' : '' ?>" href="registration.php">Registration </a>
+          </li> -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                <?php
+
+                if (isset($_SESSION['user_data'])) {
+                  echo $_SESSION['user_data']['1'];
+                }
+                ?>
+              </span> <img class="img-profile rounded-circle" src="vendor/img/undraw_profile.svg"> </a>
+            <!-- Dropdown - User Information -->
+            <!-- <li class="nav-item ">
+                            <a class="nav-link , <?= ($page == "login") ? 'active' : '' ?>" href="../logout.php">Login </a>
+                        </li> -->
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="#"> <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile </a>
+              <a class="dropdown-item" href="#"> <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="logout.php"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout </a>
+            </div>
           </li>
+        </ul>
+
 
         </ul>
         <form class="form-inline my-2 my-lg-0">

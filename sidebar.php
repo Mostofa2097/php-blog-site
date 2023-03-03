@@ -2,10 +2,7 @@
 //   include"Config.php";
 $select = "SELECT * FROM category ";
 $run = mysqli_query($config, $select);
-
 ?>
-
-
 <div class="col-lg-4">
 	<div class="card">
 		<div class="card-body d-flex right-section">

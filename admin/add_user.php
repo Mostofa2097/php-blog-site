@@ -36,7 +36,6 @@ if (isset($_POST['add_user'])) {
 }
 
 ?>
-
 <div class="container">
     <div class="row">
         <div class="col-md-5 m-auto bg-info p-4">
@@ -73,8 +72,4 @@ if (isset($_POST['add_user'])) {
         </div>
     </div>
 </div>
-
-
-
-
 <?php include 'footer.php' ?>

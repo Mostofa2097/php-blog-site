@@ -5,7 +5,6 @@ $sql = "SELECT * FROM  blog LEFT JOIN category ON blog.category=category.cat_id
  LEFT JOIN user ON blog.author_id = user.user_id WHERE cat_id = '$id' ORDER BY blog.publish_date DESC";
 $query = mysqli_query($config, $sql);
 $row = mysqli_num_rows($query);
-
 ?>
 <div class="container mt-2">
     <div class="row">

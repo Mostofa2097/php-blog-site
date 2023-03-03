@@ -4,8 +4,6 @@ if (isset($_SESSION['user_data'])) {
    $userId = $_SESSION['user_data']['0'];
 }
 ?>
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
    <!-- Page Heading -->
@@ -86,8 +84,6 @@ if (isset($_SESSION['user_data'])) {
 </div>
 <!-- /.container-fluid -->
 </div>
-
-
 <?php
 include 'footer.php';
 

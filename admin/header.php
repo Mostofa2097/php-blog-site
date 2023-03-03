@@ -3,7 +3,10 @@ session_start();
 include "../Config.php";
 if (!isset($_SESSION['user_data'])) {
     header("location:http://localhost/php-blog-site/login.php");
- }
+}
+ else if ($_SESSION['user_data']['3'] == 2) {
+    header("location:http://localhost/php-blog-site/index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

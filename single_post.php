@@ -57,21 +57,23 @@ if (!isset($_SESSION['user_data'])) {
                     <div class="card shadow">
                         <div class="card-body">
                             <h1>All Comment</h1>
-                           <?php
-                             $com_sql = "SELECT * FROM comments WHERE blog_id = '$id'";
-                             $com_query = mysqli_query($config, $com_sql);
-                             $com_rows = mysqli_num_rows($com_query);
-                             if ($com_rows) {
+                            <?php
+                            $com_sql = "SELECT * FROM comments WHERE blog_id = '$id'";
+                            $com_query = mysqli_query($config, $com_sql);
+                            $com_rows = mysqli_num_rows($com_query);
+                            if ($com_rows) {
                                 while ($result = mysqli_fetch_assoc($com_query)) {
                             ?>
-                                 <p><?= $result['comment']?></p>   
-                                 <h6>Posted by: <?= $result['username']?></h6>   
+                                    <p><?= $result['comment'] ?></p>
+                                    <h6>Posted by: <?= $result['username'] ?></h6>
+                                    <hr>
+
                             <?php
                                 }
                             }
-    
+
                             ?>
-                           
+
                         </div>
 
                     </div>
@@ -88,22 +90,29 @@ if (!isset($_SESSION['user_data'])) {
             $userId = $_SESSION['user_data']['0'];
             $username = $_SESSION['user_data']['1'];
 
-            $query = "INSERT INTO comments (comment,user_id,username,blog_id) VALUES
-                 ('$com','$userId','$username','$blog_id')";
-            $query_run = mysqli_query($config, $query);
 
-            if ($query_run) {
-                echo "<script>window.location.href='single_post.php'</script>";
-                //$_SESSION['message'] = "student created successfully";
-                //header("location: login.php ");
-                echo "ok done";
-                exit(0);
-            } else {
-                echo "<script>window.location.href='single_post.php?id=<?=$blog_id ?>'</script>";
-                // $_SESSION['message'] = "student not created";
-                // header("location: registration.php ");
-                echo "not done ";
-                exit(0);
+            if ($com != "") {
+
+
+                $query = "INSERT INTO comments (comment,user_id,username,blog_id) VALUES
+                   ('$com','$userId','$username','$blog_id')";
+                $query_run = mysqli_query($config, $query);
+
+
+
+                if ($query_run) {
+                    echo "<script>document.location.href='single_post.php?id=<?=' . $id  ?></script>";
+                    //$_SESSION['message'] = "student created successfully";
+                    //header("location: login.php ");
+                    echo "ok done";
+                    exit (0);
+                } else {
+                    echo "<script>document.location.href='single_post.php?id=<?=' . $id  ?></script>";
+                    // $_SESSION['message'] = "student not created";
+                    // header("location: registration.php ");
+                    echo "not done ";
+                    exit (0);
+                }
             }
         }
 

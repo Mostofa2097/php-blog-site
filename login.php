@@ -48,13 +48,21 @@ if (isset($_POST['login_btn'])) {
     $data = mysqli_num_rows($query);
     if ($data) {
         $result = mysqli_fetch_assoc($query);
-        $user_data = array($result['user_id'], $result['username'], $result['email']);
+        $user_data = array($result['user_id'], $result['username'], $result['email'], $result['role']);
         $_SESSION['user_data'] = $user_data;
-        echo "<script>window.location.href='admin/index.php'</script>";
+        if (isset($_SESSION['user_data'])) {
+            $userRole = $_SESSION['user_data']['3'];
+        if ($userRole == 1) {
+            echo "<script>window.location.href='admin/index.php'</script>";
+        } else {
+            echo "<script>window.location.href='index.php'</script>";
+        }
+
         // header("location:admin/index.php");
     } else {
         $_SESSION['error'] = "invalid email/pass";
         header("location:home.php");
     }
+}
 }
 ?>
